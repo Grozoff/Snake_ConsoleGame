@@ -8,8 +8,11 @@ namespace Snake_Console
     {
         static void Main(string[] args)
         {
+#pragma warning disable CA1416 // Validate platform compatibility
             Console.SetWindowSize(80, 25);
             Console.SetBufferSize(80, 25);
+#pragma warning restore CA1416 // Validate platform compatibility
+
             // Рамка
             HorizontalLine upLine = new HorizontalLine(0, 78, 0, '+');
             HorizontalLine downLine = new HorizontalLine(0, 78, 24, '+');
@@ -24,20 +27,18 @@ namespace Snake_Console
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Draw();
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
+            
+            while(true)
+            {
+                if(Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    snake.HandleKey(key.Key);
+                }
+                Thread.Sleep(100);
+                snake.Move();
+            }
+            
         }
     }
 }
