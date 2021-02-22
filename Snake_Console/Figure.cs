@@ -10,7 +10,7 @@ namespace Snake_Console
     {
         protected List<Point> pList;
 
-        public void Drow()
+        public void Draw()
         {
             foreach (Point p in pList)
             {
